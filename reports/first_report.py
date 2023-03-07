@@ -1,14 +1,17 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
+import time
 st.title('First Report')
 st.text('Experiment 1.')
 st.text('Experiment 2.')
-add_selectbox = st.sidebar.selectbox(
-    "How would you like to be contacted?",
-    ("Email", "Home phone", "Mobile phone")
-)
-add_text = st.sidebar.text(r'jn is a gtw')
+with st.sidebar:
+    with st.echo():
+        st.write("This code will be printed to the sidebar.")
+
+    with st.spinner("Loading..."):
+        time.sleep(5)
+    st.success("Done!")
 #df = pd.DataFrame(np.random.randn(50, 20), columns=('col %d' % i for i in range(20)))
 #df.to_csv('data/try1.csv', index=False)
 df = pd.read_csv('data/try1.csv')
