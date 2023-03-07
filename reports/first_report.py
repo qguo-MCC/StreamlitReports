@@ -8,7 +8,7 @@ add_selectbox = st.sidebar.selectbox(
     "How would you like to be contacted?",
     ("Email", "Home phone", "Mobile phone")
 )
-
+add_text = st.sidebar.text(r'jn is a gtw')
 #df = pd.DataFrame(np.random.randn(50, 20), columns=('col %d' % i for i in range(20)))
 #df.to_csv('data/try1.csv', index=False)
 df = pd.read_csv('data/try1.csv')
