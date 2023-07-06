@@ -4,6 +4,7 @@ from pathlib import Path
 from src.utilities.save_load_python_object import load_obj
 from src.utilities.social_network_utilities import calculate_centrality, get_leader_tweets
 import pandas as pd
+from streamlit.connections import SQLConnection
 from sqlalchemy import create_engine
 
 st.set_page_config(layout="wide")
@@ -26,7 +27,7 @@ cluster_option = st.sidebar.selectbox(
     'select cluster',
     tuple(clusters))
 fig = load_obj(root.joinpath(f'{query_option}_{edge_type_option}_plotly.fig'))
-engine = st.experimental_connection('data_db', type='sql').session.connection(close_with_result=False)
+engine = st.experimental_connection('data_db', type=SQLConnection).session.connection(close_with_result=False)
 if cluster_option == 'all':
     st.plotly_chart(fig, use_container_width=True)
     user_class = pd.read_sql(f'SELECT Medical_professional, Advocate_Activist, Educator, Researcher, Job_Posting, organizations, Government, Miscellaneous FROM user_descriptions', engine)\
