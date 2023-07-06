@@ -29,7 +29,7 @@ fig = load_obj(root.joinpath(f'{query_option}_{edge_type_option}_plotly.fig'))
 conn = st.experimental_connection('data_db', type='sql')
 if cluster_option == 'all':
     st.plotly_chart(fig, use_container_width=True)
-    user_class = pd.read_sql(f'SELECT Medical_professional, Advocate_Activist, Educator, Researcher, Job_Posting, organizations, Government, Miscellaneous FROM user_descriptions', conn.session.connection())\
+    user_class = pd.read_sql(f'SELECT Medical_professional, Advocate_Activist, Educator, Researcher, Job_Posting, organizations, Government, Miscellaneous FROM user_descriptions', conn.session.connection(close_with_result=True))\
         .replace('None', None)\
         .dropna()\
         .astype(int)
@@ -56,10 +56,10 @@ else:
     st.plotly_chart(fig, use_container_width=True)
     cmembers = [node for node in G.nodes if G.nodes[node]['cluster'] == int(cluster_option)]
 
-    users = pd.read_sql(f'SELECT user_id, username FROM authors WHERE username in {str(tuple(cmembers)).replace(",)", ")")}', conn.session.connection())
+    users = pd.read_sql(f'SELECT user_id, username FROM authors WHERE username in {str(tuple(cmembers)).replace(",)", ")")}', conn.session.connection(close_with_result=True))
 
     cids = str(tuple(users['user_id'].to_list())).replace(",)", ")")
-    user_class = pd.read_sql(f'SELECT Medical_professional, Advocate_Activist, Educator, Researcher, Job_Posting, organizations, Government, Miscellaneous FROM user_descriptions WHERE user_id in {cids}', conn.session.connection())\
+    user_class = pd.read_sql(f'SELECT Medical_professional, Advocate_Activist, Educator, Researcher, Job_Posting, organizations, Government, Miscellaneous FROM user_descriptions WHERE user_id in {cids}', conn.session.connection(close_with_result=True))\
         .replace('None', None)\
         .dropna()\
         .astype(int)
@@ -77,7 +77,7 @@ else:
     st.subheader('Cluster Leader')
     leader = centralities.index[0]
     st.write(leader)
-    tweets = pd.DataFrame({'Tweets': get_leader_tweets(leader, queries, conn.session.connection())})
+    tweets = pd.DataFrame({'Tweets': get_leader_tweets(leader, queries, conn.session.connection(close_with_result=True))})
     st.subheader(f'Tweets by or about {leader}')
     st.dataframe(tweets, use_container_width = True, hide_index=True, column_config=None)
 
