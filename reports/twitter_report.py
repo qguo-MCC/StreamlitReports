@@ -29,16 +29,10 @@ fig = load_obj(root.joinpath(f'{query_option}_{edge_type_option}_plotly.fig'))
 conn = st.experimental_connection('data_db', type='sql')
 if cluster_option == 'all':
     st.plotly_chart(fig, use_container_width=True)
-    user_class = pd.read_sql(f'SELECT Medical_professional, Advocate_Activist, Educator, Researcher, Job_Posting, organizations, Government, Miscellaneous FROM user_descriptions', conn.session.connection(close_with_result=True))\
-        .replace('None', None)\
-        .dropna()\
-        .astype(int)
     st.subheader('GPT4 summary of leader tweets')
     summary = pd.read_excel('data/GPT4summaries.xlsx', engine='openpyxl', sheet_name=f'{query_option}_{edge_type_option}')
     summary[['Theme', 'Summary']] = summary['Themes'].str.split(': ', expand = True)
     st.dataframe(summary[['Theme', 'Summary']], use_container_width=True, hide_index=True)
-    st.subheader('User Classification')
-    st.dataframe(user_class.sum().reset_index().transpose(), use_container_width=True, hide_index=True)
     st.subheader('Top 10 leaders based on indegree centrality')
     st.dataframe(calculate_centrality(nx.in_degree_centrality, 'Indegree', G), use_container_width=True)
     st.subheader('Top 10 leaders based on outdegree centrality')
