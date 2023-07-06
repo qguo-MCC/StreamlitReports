@@ -40,7 +40,7 @@ if cluster_option == 'all':
     summary = pd.read_excel('data/GPT4summaries.xlsx', engine='openpyxl', sheet_name=f'{query_option}_{edge_type_option}')
     summary[['Theme', 'Summary']] = summary['Themes'].str.split(': ', expand = True)
     st.dataframe(summary[['Theme', 'Summary']], use_container_width=True, hide_index=True)
-    st.subheader('User Classification')
+    st.subheader('GPT3.5 User Classification')
     st.dataframe(user_class.sum().reset_index().transpose(), use_container_width=True, hide_index=True)
     st.subheader('Top 10 leaders based on indegree centrality')
     st.dataframe(calculate_centrality(nx.in_degree_centrality, 'Indegree', G), use_container_width=True)
@@ -66,7 +66,7 @@ else:
     st.write('To be implement later if needed.')
     st.subheader('Cluster Summary')
     st.write('To be implement later if needed.')
-    st.subheader('Cluster Member Classification')
+    st.subheader('GPT3.5 Cluster Member Classification')
     var_names = ['Medical_professional', 'Advocate_Activist', 'Educator', 'Researcher', 'Job_Posting', 'organizations',
                  'Government', 'Miscellaneous']
     user_class = pd.read_csv('data/user_descriptions.csv')
