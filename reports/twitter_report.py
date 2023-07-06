@@ -26,7 +26,7 @@ cluster_option = st.sidebar.selectbox(
     'select cluster',
     tuple(clusters))
 fig = load_obj(root.joinpath(f'{query_option}_{edge_type_option}_plotly.fig'))
-engine = create_engine("sqlite:///data\\data.db")
+engine = st.experimental_connection('data_db', type='sql')
 if cluster_option == 'all':
     st.plotly_chart(fig, use_container_width=True)
     user_class = pd.read_sql(f'SELECT Medical_professional, Advocate_Activist, Educator, Researcher, Job_Posting, organizations, Government, Miscellaneous FROM user_descriptions', engine)\
