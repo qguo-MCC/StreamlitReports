@@ -4,7 +4,7 @@ from pathlib import Path
 from src.utilities.save_load_python_object import load_obj
 from src.utilities.social_network_utilities import calculate_centrality, get_leader_tweets
 import pandas as pd
-from sqlalchemy import create_engine
+#from sqlalchemy import create_engine
 
 st.set_page_config(layout="wide")
 
@@ -26,10 +26,10 @@ cluster_option = st.sidebar.selectbox(
     'select cluster',
     tuple(clusters))
 fig = load_obj(root.joinpath(f'{query_option}_{edge_type_option}_plotly.fig'))
-engine = st.experimental_connection('data_db', type='sql').session.connection()
+conn = st.experimental_connection('data_db', type='sql')
 if cluster_option == 'all':
     st.plotly_chart(fig, use_container_width=True)
-    user_class = pd.read_sql(f'SELECT Medical_professional, Advocate_Activist, Educator, Researcher, Job_Posting, organizations, Government, Miscellaneous FROM user_descriptions', engine)\
+    user_class = pd.read_sql(f'SELECT Medical_professional, Advocate_Activist, Educator, Researcher, Job_Posting, organizations, Government, Miscellaneous FROM user_descriptions', conn.session.connection())\
         .replace('None', None)\
         .dropna()\
         .astype(int)
@@ -56,10 +56,10 @@ else:
     st.plotly_chart(fig, use_container_width=True)
     cmembers = [node for node in G.nodes if G.nodes[node]['cluster'] == int(cluster_option)]
 
-    users = pd.read_sql(f'SELECT user_id, username FROM authors WHERE username in {str(tuple(cmembers)).replace(",)", ")")}', engine)
+    users = pd.read_sql(f'SELECT user_id, username FROM authors WHERE username in {str(tuple(cmembers)).replace(",)", ")")}', conn.session.connection())
 
     cids = str(tuple(users['user_id'].to_list())).replace(",)", ")")
-    user_class = pd.read_sql(f'SELECT Medical_professional, Advocate_Activist, Educator, Researcher, Job_Posting, organizations, Government, Miscellaneous FROM user_descriptions WHERE user_id in {cids}', engine)\
+    user_class = pd.read_sql(f'SELECT Medical_professional, Advocate_Activist, Educator, Researcher, Job_Posting, organizations, Government, Miscellaneous FROM user_descriptions WHERE user_id in {cids}', conn.session.connection())\
         .replace('None', None)\
         .dropna()\
         .astype(int)
@@ -77,7 +77,7 @@ else:
     st.subheader('Cluster Leader')
     leader = centralities.index[0]
     st.write(leader)
-    tweets = pd.DataFrame({'Tweets': get_leader_tweets(leader, queries, engine)})
+    tweets = pd.DataFrame({'Tweets': get_leader_tweets(leader, queries, conn.session.connection())})
     st.subheader(f'Tweets by or about {leader}')
     st.dataframe(tweets, use_container_width = True, hide_index=True, column_config=None)
 
