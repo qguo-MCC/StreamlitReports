@@ -7,7 +7,7 @@ def get_topn(df: pd.DataFrame, n=10):
     top10.columns = range(1, n+1)
     return top10
 def calculate_centrality(centrality_func, centrality_name: str, G: nx.classes.digraph.DiGraph, n=10) ->pd.DataFrame:
-    centralities = nx.in_degree_centrality(G)
+    centralities = centrality_func(G)
     centralities = pd.Series(centralities)
     centralities.index = list(G.nodes)
     centralities = centralities.reset_index().rename(columns={'index': 'user', 0: centrality_name})
