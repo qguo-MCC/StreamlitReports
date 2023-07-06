@@ -44,7 +44,7 @@ if cluster_option == 'all':
     st.dataframe(user_class.sum().reset_index().transpose(), use_container_width=True, hide_index=True)
     st.subheader('Network density')
     st.write("Density is a measure of how closely knit a social network is. In simpler terms, it's about how many friends or connections everyone has compared to how many they could possibly have.")
-    st.write(f'The density of the network is {nx.density(G)}')
+    st.write(f'The density of the network is {nx.density(G)}. There are {len(G.nodes)} nodes and {len(G.edges)} edges.')
     st.subheader('Top 10 leaders based on indegree centrality')
     st.write("A node's (or a person's) in-degree corresponds to the number of incoming connections they have.")
     st.dataframe(calculate_centrality(nx.in_degree_centrality, 'Indegree', G), use_container_width=True)
