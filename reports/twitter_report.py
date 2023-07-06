@@ -27,7 +27,7 @@ cluster_option = st.sidebar.selectbox(
     'select cluster',
     tuple(clusters))
 fig = load_obj(root.joinpath(f'{query_option}_{edge_type_option}_plotly.fig'))
-engine = st.experimental_connection('data_db', type=SQLConnection)
+engine = st.experimental_connection('data_db', type='sql')
 if cluster_option == 'all':
     st.plotly_chart(fig, use_container_width=True)
     user_class = engine.query(f'SELECT Medical_professional, Advocate_Activist, Educator, Researcher, Job_Posting, organizations, Government, Miscellaneous FROM user_descriptions')\
@@ -57,10 +57,10 @@ else:
     st.plotly_chart(fig, use_container_width=True)
     cmembers = [node for node in G.nodes if G.nodes[node]['cluster'] == int(cluster_option)]
 
-    users = pd.read_sql(f'SELECT user_id, username FROM authors WHERE username in {str(tuple(cmembers)).replace(",)", ")")}', engine)
+    users = engine.query(f'SELECT user_id, username FROM authors WHERE username in {str(tuple(cmembers)).replace(",)", ")")}')
 
     cids = str(tuple(users['user_id'].to_list())).replace(",)", ")")
-    user_class = pd.read_sql(f'SELECT Medical_professional, Advocate_Activist, Educator, Researcher, Job_Posting, organizations, Government, Miscellaneous FROM user_descriptions WHERE user_id in {cids}', engine)\
+    user_class = engine.query(f'SELECT Medical_professional, Advocate_Activist, Educator, Researcher, Job_Posting, organizations, Government, Miscellaneous FROM user_descriptions WHERE user_id in {cids}')\
         .replace('None', None)\
         .dropna()\
         .astype(int)

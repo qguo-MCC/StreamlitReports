@@ -16,10 +16,10 @@ def calculate_centrality(centrality_func, centrality_name: str, G: nx.classes.di
     topn = get_topn(centralities, n)
     return topn
 
-def get_leader_tweets(leader: str, queries: List[int], engine: Engine) -> List[str]:
-    tweets = pd.read_sql(f'SELECT text, user FROM tweets WHERE query_number in {str(tuple(queries)).replace(",)", ")")}', engine)\
+def get_leader_tweets(leader: str, queries: List[int], engine) -> List[str]:
+    tweets = engine.query(f'SELECT text, user FROM tweets WHERE query_number in {str(tuple(queries)).replace(",)", ")")}')\
         .rename(columns={'user': 'user_id'})
-    user_id = pd.read_sql(f'SELECT user_id, username FROM authors', engine).iloc[0]['user_id']
+    user_id = engine.query(f'SELECT user_id, username FROM authors').iloc[0]['user_id']
     tweets_about_leader = tweets.loc[tweets['text'].str.contains(leader), 'text'].to_list()
     leader_tweets = tweets.loc[tweets['user_id']==user_id, 'text'].to_list()
     leader_tweets = pd.Series(leader_tweets+tweets_about_leader).unique().tolist()
