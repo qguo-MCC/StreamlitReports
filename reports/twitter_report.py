@@ -13,7 +13,7 @@ root = Path('data')
 st.title('Twitter Social Network Analysis')
 query_option = st.sidebar.selectbox(
     'select queries',
-    ('CanMEDS', 'MedED'))
+    ('CanMEDS', 'MedEd'))
 if query_option == 'CanMEDS':
     queries = [1,2]
 else:
