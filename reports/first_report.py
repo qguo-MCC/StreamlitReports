@@ -2,6 +2,8 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import time
+#
+
 import snowflake.connector
 @st.cache_resource
 def init_connection():
@@ -10,9 +12,17 @@ def init_connection():
     )
 
 conn = init_connection()
+
 st.title('First Report')
 st.text('Experiment 1.')
 st.text('Experiment 2.')
+query_options = st.selectbox(
+    'select queries',
+    ('CanMEDs', 'MedED'))
+edge_type_options = st.selectbox(
+    'select edge type',
+    ('retweet+mention', 'retweet', 'mention'))
+
 cur = conn.cursor()
 q = cur.execute('SELECT * FROM testschema_mg.truth_table')
 df = q.fetch_pandas_all()
