@@ -24,3 +24,9 @@ def get_leader_tweets(leader: str, queries: List[int], engine: Engine) -> List[s
     leader_tweets = tweets.loc[tweets['user_id']==user_id, 'text'].to_list()
     leader_tweets = pd.Series(leader_tweets+tweets_about_leader).unique().tolist()
     return leader_tweets
+
+def get_leader_tweets_csv(leader: str, tweets: pd.DataFrame, user_id: int) -> List[str]:
+    tweets_about_leader = tweets.loc[tweets['text'].str.contains(leader), 'text'].to_list()
+    leader_tweets = tweets.loc[tweets['user_id']==user_id, 'text'].to_list()
+    leader_tweets = pd.Series(leader_tweets+tweets_about_leader).unique().tolist()
+    return leader_tweets
