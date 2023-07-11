@@ -69,11 +69,21 @@ else:
     tweets = tweets.loc[tweets[cluster_option]==True]
     st.write(f'there are {tweets.shape[0]} tweets in this cluster.')
     st.dataframe(
-        summary[["theme", "summary"]], use_container_width=True, hide_index=True
+        summary[["theme", "summary"]],
+        use_container_width=True,
+        hide_index=True,
+        column_config={
+            "theme": st.column_config.Column(
+                width="small"
+            ),
+            "summary": st.column_config.TextColumn(
+                max_chars = 1000
+            )
+        }
     )
     st.subheader('Cluster tweets')
     st.dataframe(
-        tweets[['id', 'text']],
+        tweets[['text']],
         use_container_width=True, hide_index=True
     )
 
