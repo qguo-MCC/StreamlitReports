@@ -64,6 +64,16 @@ else:
         engine="openpyxl",
     )
     summary[["theme", "summary"]] = summary["themes"].str.split(": ", expand=True)
+    st.subheader(f'Cluster: {cluster_option}')
+    tweets = pd.read_csv(root.joinpath(r"tweets_classified_cleaned.csv"))
+    tweets = tweets.loc[tweets[cluster_option]==True]
+    st.write(f'there are {tweets.shape[0]} tweets in this cluster.')
     st.dataframe(
         summary[["theme", "summary"]], use_container_width=True, hide_index=True
     )
+    st.subheader('Cluster tweets')
+    st.dataframe(
+        tweets[['id', 'text']],
+        use_container_width=True, hide_index=True
+    )
+
