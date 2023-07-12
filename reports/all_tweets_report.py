@@ -55,7 +55,7 @@ if cluster_option == "all":
         .sum()
         .reset_index()
         .rename(columns={"index": "cluster name", 0: "count"})
-        .sort_values('count'),
+        .sort_values('count', ascending= False),
         hide_index=True,
     )
 else:
