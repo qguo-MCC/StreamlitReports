@@ -3,10 +3,10 @@ import networkx as nx
 from sqlalchemy.engine.base import Engine
 from typing import List
 def get_topn(df: pd.DataFrame, n=10):
-    top10 = df.iloc[:n].copy().round(3).transpose()
-    top10.columns = range(1, n+1)
+    top10 = df.iloc[:n].copy().round(3)
+
     return top10
-def calculate_centrality(centrality_func, centrality_name: str, G: nx.classes.digraph.DiGraph, n=10) ->pd.DataFrame:
+def calculate_centrality(centrality_func, centrality_name: str, G: nx.classes.digraph.DiGraph, user_info: pd.DataFrame, n=10) ->pd.DataFrame:
     centralities = centrality_func(G)
     centralities = pd.Series(centralities)
     centralities.index = list(G.nodes)
@@ -14,6 +14,9 @@ def calculate_centrality(centrality_func, centrality_name: str, G: nx.classes.di
     centralities['cluster'] = centralities['user'].apply(lambda e: G.nodes[e]['cluster'])
     centralities.sort_values(centrality_name, ascending=False, inplace=True)
     topn = get_topn(centralities, n)
+    topn['Role'] = topn['user'].apply(lambda e: user_info.loc[user_info['username']==e, 'class'].values[0].split(", ")[0])
+    topn = topn.transpose()
+    topn.columns = range(1, n+1)
     return topn
 
 def get_leader_tweets(leader: str, queries: List[int], engine) -> List[str]:

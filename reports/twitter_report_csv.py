@@ -31,11 +31,11 @@ if cluster_option == 'all':
     st.plotly_chart(fig, use_container_width=True)
     var_names = ['Medical_professional', 'Advocate_Activist', 'Educator', 'Researcher', 'Job_Posting', 'organizations',
                  'Government', 'Miscellaneous']
-    user_class = pd.read_csv('data/user_descriptions.csv')[var_names] \
+    user_info = pd.read_csv('data/user_descriptions.csv')
+    user_class = user_info[var_names] \
         .replace('None', None) \
         .dropna() \
         .astype(int)
-
     st.subheader('GPT4 summary of leader tweets')
     summary = pd.read_excel('data/GPT4summaries.xlsx', engine='openpyxl', sheet_name=f'{query_option}_{edge_type_option}')
     summary[['Theme', 'Summary']] = summary['Themes'].str.split(': ', expand = True)
@@ -47,19 +47,19 @@ if cluster_option == 'all':
     st.write(f'The density of the network is {nx.density(G)}. There are {len(G.nodes)} nodes and {len(G.edges)} edges.')
     st.subheader('Top 10 leaders based on indegree centrality')
     st.write("A node's (or a person's) in-degree corresponds to the number of incoming connections they have.")
-    st.dataframe(calculate_centrality(nx.in_degree_centrality, 'Indegree', G), use_container_width=True)
+    st.dataframe(calculate_centrality(nx.in_degree_centrality, 'Indegree', G, user_info), use_container_width=True)
     st.subheader('Top 10 leaders based on outdegree centrality')
     st.write("""The "out-degree" of a node is the number of outgoing connections they have, or the number of people they are following.""")
-    st.dataframe(calculate_centrality(nx.out_degree_centrality, 'Outdegree', G), use_container_width=True)
+    st.dataframe(calculate_centrality(nx.out_degree_centrality, 'Outdegree', G, user_info), use_container_width=True)
     st.subheader('Top 10 leaders based on eigen vector centrality')
     st.write("""Eigenvector Centrality is based on the idea that not all connections are created equal. If you're connected to someone who is highly connected, that should boost your own importance in the network. In other words, it's not just about how many people you're connected to, but also how important those people are.""")
-    st.dataframe(calculate_centrality(nx.eigenvector_centrality, 'EigenVector', G), use_container_width=True)
+    st.dataframe(calculate_centrality(nx.eigenvector_centrality, 'EigenVector', G, user_info), use_container_width=True)
     st.subheader('Top 10 leaders based on closeness centrality')
     st.write("""Closeness calculates how efficiently and directly one person can reach all the other individuals in the network. If you have high closeness centrality, it means you can quickly reach a large number of people, and you are considered important in terms of information flow or influence.""")
-    st.dataframe(calculate_centrality(nx.closeness_centrality, 'Closeness', G), use_container_width=True)
+    st.dataframe(calculate_centrality(nx.closeness_centrality, 'Closeness', G, user_info), use_container_width=True)
     st.subheader('Top 10 leaders based on betweenness centrality')
     st.write("""Betweenness Centrality is a measure of how often a particular node (a person, in the case of a social network) serves as a bridge along the shortest path between two other nodes. In simpler words, it shows how much a person stands between others, acting as a connector or a go-between.""")
-    st.dataframe(calculate_centrality(nx.betweenness_centrality, 'Betweenness', G), use_container_width=True)
+    st.dataframe(calculate_centrality(nx.betweenness_centrality, 'Betweenness', G, user_info), use_container_width=True)
 else:
     for trace in fig.data:
         if trace['name'] != f'c{cluster_option}':
