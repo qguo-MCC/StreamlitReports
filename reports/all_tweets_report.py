@@ -54,7 +54,8 @@ if cluster_option == "all":
         tweets.iloc[:, 6:]
         .sum()
         .reset_index()
-        .rename(columns={"index": "cluster name", 0: "count"}),
+        .rename(columns={"index": "cluster name", 0: "count"})
+        .sort_values('count'),
         hide_index=True,
     )
 else:
