@@ -65,10 +65,10 @@ if cluster_option == "all":
     )
     st.subheader("Search tweets related to any topic")
     query = st.text_input('query')
-
+    n_tweets = st.slider("how many tweets do you want?", 1, 20)
     #st.button('Search')
     if st.button('Search'):
-        results = db.max_marginal_relevance_search(query, k=3)
+        results = db.max_marginal_relevance_search(query, k=n_tweets)
         for i, t in enumerate(results):
             st.write(f"<b>Example {i+1}</b>: {t.page_content.split('ctext:')[1]}", unsafe_allow_html=True)
 
