@@ -10,7 +10,8 @@ from langchain.vectorstores import FAISS
 from langchain.embeddings import OpenAIEmbeddings
 import pandas as pd
 import os
-
+import openai
+openai.api_key = os.environ['OPENAI_API_KEY']
 st.set_page_config(layout="wide")
 root = Path("data")
 
