@@ -72,7 +72,7 @@ if cluster_option == "all":
         if query_method == 'highly related':
             results = db.similarity_search_with_score(query, k=n_tweets)
             for i, t in enumerate(results):
-                st.write(f"<b>Tweet {i+1}</b>: (similarity score={round(t[1],3)}) {t[0].page_content.split('ctext:')[1]}", unsafe_allow_html=True)
+                st.write(f"<b>Tweet {i+1}</b>: (similarity score={t[1]}) {t[0].page_content.split('ctext:')[1]}", unsafe_allow_html=True)
         else:
             results = db.max_marginal_relevance_search(query, k=n_tweets)
             for i, t in enumerate(results):
