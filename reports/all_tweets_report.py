@@ -65,12 +65,18 @@ if cluster_option == "all":
     )
     st.subheader("Search tweets related to any topic")
     query = st.text_input('query')
-    n_tweets = st.slider("how many tweets do you want?", 1, 20)
+    n_tweets = st.slider("how many tweets do you want?", 1, 20, 3)
+    query_method = st.selectbox("search method", ('highly related', 'max diversity'))
     #st.button('Search')
     if st.button('Search'):
-        results = db.max_marginal_relevance_search(query, k=n_tweets)
-        for i, t in enumerate(results):
-            st.write(f"<b>Example {i+1}</b>: {t.page_content.split('ctext:')[1]}", unsafe_allow_html=True)
+        if query_method == 'max diversity':
+            results = db.similarity_search_with_score(query, k=n_tweets)
+            for i, t in enumerate(results):
+                st.write(f"<b>Tweet {i+1}</b>: (similarity score={t[1]}) {t[0].page_content.split('ctext:')[1]}", unsafe_allow_html=True)
+        else:
+            results = db.max(query, k=n_tweets)
+            for i, t in enumerate(results):
+                st.write(f"<b>Tweet {i+1}</b>: {t.page_content.split('ctext:')[1]}", unsafe_allow_html=True)
 
 
 
