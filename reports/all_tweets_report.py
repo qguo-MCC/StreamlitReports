@@ -6,11 +6,11 @@ from src.utilities.social_network_utilities import (
     calculate_centrality,
     get_leader_tweets_csv,
 )
-import langchain as lc
+from langchain.embeddings import OpenAIEmbeddings
 from src.utilities.save_load_python_object import load_obj
 import pandas as pd
 import os
-
+embeddings = OpenAIEmbeddings()
 st.set_page_config(layout="wide")
 root = Path("data")
 
