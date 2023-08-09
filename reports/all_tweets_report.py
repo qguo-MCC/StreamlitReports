@@ -6,7 +6,7 @@ from src.utilities.social_network_utilities import (
     calculate_centrality,
     get_leader_tweets_csv,
 )
-from langchain.utilities import loading
+import langchain as lc
 from src.utilities.save_load_python_object import load_obj
 import pandas as pd
 import os
