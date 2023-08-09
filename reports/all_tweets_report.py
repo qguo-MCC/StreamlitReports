@@ -15,7 +15,7 @@ st.set_page_config(layout="wide")
 root = Path("data")
 
 st.title("All tweets summary")
-st.write(langchain.__version__)
+
 clusters = [
     "all",
     "advocacy",
