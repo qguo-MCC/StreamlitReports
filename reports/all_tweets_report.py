@@ -6,12 +6,11 @@ from src.utilities.social_network_utilities import (
     calculate_centrality,
     get_leader_tweets_csv,
 )
-from langchain.vectorstores import FAISS
-from langchain.embeddings import OpenAIEmbeddings
+
+from src.utilities.save_load_python_object import load_obj
 import pandas as pd
 import os
-import openai
-openai.api_key = os.environ['OPENAI_API_KEY']
+
 st.set_page_config(layout="wide")
 root = Path("data")
 
@@ -48,8 +47,7 @@ clusters = [
 
 cluster_option = st.sidebar.selectbox("select cluster", tuple(clusters))
 faiss_db_path = root.joinpath('all_tweets_embedding').__str__()
-embeddings = OpenAIEmbeddings()
-db = FAISS.load_local(faiss_db_path, embeddings)
+db = load_obj('data/faiss_db_obj.FAISS')
 if cluster_option == "all":
     tweets = pd.read_csv(root.joinpath(r"tweets_classified_cleaned.csv"))
     st.write(
