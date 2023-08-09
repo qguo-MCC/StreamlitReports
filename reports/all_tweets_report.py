@@ -6,15 +6,16 @@ from src.utilities.social_network_utilities import (
     calculate_centrality,
     get_leader_tweets_csv,
 )
-from langchain.embeddings import OpenAIEmbeddings
+import langchain
 from src.utilities.save_load_python_object import load_obj
 import pandas as pd
 import os
-embeddings = OpenAIEmbeddings()
+
 st.set_page_config(layout="wide")
 root = Path("data")
 
 st.title("All tweets summary")
+st.write(langchain.__version__)
 clusters = [
     "all",
     "advocacy",
