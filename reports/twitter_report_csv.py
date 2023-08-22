@@ -37,9 +37,14 @@ if cluster_option == 'all':
         .dropna() \
         .astype(int)
     st.subheader('GPT4 summary of leader tweets')
-    summary = pd.read_excel('data/GPT4summaries.xlsx', engine='openpyxl', sheet_name=f'{query_option}_{edge_type_option}')
-    summary[['Theme', 'Summary']] = summary['Themes'].str.split(': ', expand = True)
-    st.dataframe(summary[['Theme', 'Summary']], use_container_width=True, hide_index=True)
+    themes = pd.read_csv(f'data/{query_option}ThemeFinal.csv')
+    for idx, row in themes.iterrows():
+        examples = row['examples'].split('|| ')
+        st.write(f'<h4>Theme {idx+1}: {row["text"]}</h4>', unsafe_allow_html=True)
+        st.write(f'<b>Cluster size:</b>{row["cluster_size"]} tweets')
+        st.write(f'<b>Summary:</b> {row["summary"]}', unsafe_allow_html=True)
+        st.write(f'<b>Example 1:</b> {examples[0]}', unsafe_allow_html=True)
+        st.write(f'<b>Example 2:</b> {examples[1]}', unsafe_allow_html=True)
     st.subheader('GPT3.5 User Classification')
     st.dataframe(user_class.sum().reset_index().transpose(), use_container_width=True, hide_index=True)
     st.subheader('Network density')
