@@ -103,8 +103,10 @@ else:
         .dropna() \
         .astype(int)
     st.dataframe(user_class.sum().reset_index().transpose(), use_container_width=True, hide_index=True)
-    centralities = nx.in_degree_centrality(G)
+    centralities = nx.degree(G)
     centralities = pd.Series(centralities)
+    centralities.index = centralities.apply(lambda e: e[0])
+    centralities = centralities.apply(lambda e: e[1])
     centralities.index = list(G.nodes)
     centralities = centralities.loc[cmembers]
     centralities.sort_values(ascending=False, inplace=True)
