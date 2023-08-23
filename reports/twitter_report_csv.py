@@ -38,6 +38,8 @@ if cluster_option == 'all':
         .astype(int)
     st.subheader('GPT4 summary of leader tweets')
     themes = pd.read_csv(f'data/{query_option}ThemeFinal.csv')
+    themes.sort_values('cluster_size', inplace = True)
+    themes.reset_index(inplace=True)
     for idx, row in themes.iterrows():
         examples = row['examples'].split('|| ')
         st.write(f'<h4>Theme {idx+1}: {row["text"]}</h4>', unsafe_allow_html=True)
@@ -60,6 +62,9 @@ if cluster_option == 'all':
     leader_stats = user_info.loc[user_info['username'].isin(leaders['Influencer'].to_list())].iloc[:,4:].sum().reset_index().rename(columns={'index': 'influencer', 0:'N'})
     leader_stats['Percentage'] = (leader_stats['N']*100/leaders.shape[0]).round(1).astype(str)+"%"
     st.dataframe(leader_stats, hide_index=True)
+    st.write(f'Max leader degree: {leaders["Degree"].max()}, Min leader degree: {leaders["Degree"].min()}')
+    st.dataframe(leaders, hide_index=True)
+
     st.write('Note: some influencers have multiple social group labels, so the percentages of social groups do not add to 100%.')
     st.subheader('Top 10 leaders based on indegree centrality')
     st.write("A node's (or a person's) in-degree corresponds to the number of incoming connections they have.")
