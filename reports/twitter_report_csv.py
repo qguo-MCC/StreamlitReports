@@ -4,7 +4,7 @@ from pathlib import Path
 from src.utilities.save_load_python_object import load_obj
 from src.utilities.social_network_utilities import calculate_centrality, get_leader_tweets_csv
 import pandas as pd
-
+import community
 
 st.set_page_config(layout="wide")
 
@@ -47,9 +47,13 @@ if cluster_option == 'all':
         st.write(f'<b>Example 2:</b> {examples[1]}', unsafe_allow_html=True)
     st.subheader('GPT3.5 User Classification')
     st.dataframe(user_class.sum().reset_index().transpose(), use_container_width=True, hide_index=True)
-    st.subheader('Network density')
+    st.subheader('Network density and modularity')
+    partition = community.best_partition(G.to_undirected())
+    modularity = community.modularity(partition, G.to_undirected())
     st.write("Density is a measure of how closely knit a social network is. In simpler terms, it's about how many friends or connections everyone has compared to how many they could possibly have.")
     st.write(f'The density of the network is {nx.density(G)}. There are {len(G.nodes)} nodes and {len(G.edges)} edges.')
+    st.write(f"Social networks' modularity refers to the degree to which the network can be divided into distinct communities or groups without many connections between them.")
+    st.write(f'The modularity of the network is {modularity}.')
     st.subheader('Leader social group distribution')
     leaders = pd.read_csv(f'data/{query_option}Influencers.csv')
     st.write(f'There are {leaders.shape[0]} influencers identified based on top 20 degree (indegree + outdegree) and top degree influencers of clusters with 5 or more users.')
