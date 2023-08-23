@@ -19,7 +19,7 @@ else:
     queries = [4]
 edge_type_option = st.sidebar.selectbox(
     'select edge type',
-    ('mention_retweet', 'retweet', 'mention'))
+    ('mention_retweet'))
 G = load_obj(root.joinpath(f'{query_option}_{edge_type_option}_nx.graph'))
 clusters = ['all'] + pd.Series([G.nodes[node]['cluster'] for node in G.nodes]).sort_values().astype(str).unique().tolist()
 cluster_option = st.sidebar.selectbox(
