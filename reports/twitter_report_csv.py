@@ -53,7 +53,7 @@ if cluster_option == 'all':
     st.subheader('Leader social group distribution')
     leaders = pd.read_csv(f'data/{query_option}Influencers.csv')
     st.write(f'There are {leaders.shape[0]} influencers identified based on top 20 degree (indegree + outdegree) and leaders of clusters with 5 or more users.')
-    st.dataframe(user_info.loc[user_info['username'].isin(leaders['Influencer'].to_list())].iloc[:,4:].sum())
+    st.dataframe(user_info.loc[user_info['username'].isin(leaders['Influencer'].to_list())].iloc[:,4:].sum().reset_index().rename(columns={'index': 'influencer', 0:'N'}))
     st.subheader('Top 10 leaders based on indegree centrality')
     st.write("A node's (or a person's) in-degree corresponds to the number of incoming connections they have.")
     st.dataframe(calculate_centrality(nx.in_degree_centrality, 'Indegree', G, user_info), use_container_width=True)
