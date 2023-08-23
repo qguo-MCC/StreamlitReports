@@ -52,7 +52,7 @@ if cluster_option == 'all':
     st.write(f'The density of the network is {nx.density(G)}. There are {len(G.nodes)} nodes and {len(G.edges)} edges.')
     st.subheader('Leader social group distribution')
     leaders = pd.read_csv(f'data/{query_option}Influencers.csv')
-    st.write(f'There are {leaders.shape[0]} leaders identified based on top 20 degree (indegree + outdegree) and leaders of clusters with 5 or more users.')
+    st.write(f'There are {leaders.shape[0]} influencers identified based on top 20 degree (indegree + outdegree) and leaders of clusters with 5 or more users.')
     st.dataframe(user_info.loc[user_info['username'].isin(leaders['username'].to_list())].iloc[:,4:].sum())
     st.subheader('Top 10 leaders based on indegree centrality')
     st.write("A node's (or a person's) in-degree corresponds to the number of incoming connections they have.")
