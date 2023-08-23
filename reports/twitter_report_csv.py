@@ -78,7 +78,6 @@ else:
             trace.visible = 'legendonly'
     st.plotly_chart(fig, use_container_width=True)
     cmembers = [node for node in G.nodes if G.nodes[node]['cluster'] == int(cluster_option)]
-    st.write(f'Cluster Modularity: {nx.community.modularity(G, [tuple(cmembers)])}')
     users = pd.read_csv('data/users.csv')
     users = users.loc[users['username'].isin(cmembers)]
     cids = users['user_id'].to_list()
