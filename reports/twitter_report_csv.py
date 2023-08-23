@@ -52,7 +52,7 @@ if cluster_option == 'all':
     st.write(f'The density of the network is {nx.density(G)}. There are {len(G.nodes)} nodes and {len(G.edges)} edges.')
     st.subheader('Leader social group distribution')
     leaders = pd.read_csv(f'data/{query_option}Influencers.csv')
-    st.write(f'There are {leaders.shape[0]} influencers identified based on top 20 degree (indegree + outdegree) and leaders of clusters with 5 or more users.')
+    st.write(f'There are {leaders.shape[0]} influencers identified based on top 20 degree (indegree + outdegree) and top degree influencers of clusters with 5 or more users.')
     leader_stats = user_info.loc[user_info['username'].isin(leaders['Influencer'].to_list())].iloc[:,4:].sum().reset_index().rename(columns={'index': 'influencer', 0:'N'})
     leader_stats['Percentage'] = leader_stats['N']/leaders.shape[0]
     st.dataframe(leader_stats, hide_index=True)
