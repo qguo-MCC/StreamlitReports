@@ -58,7 +58,7 @@ if cluster_option == 'all':
     leaders = pd.read_csv(f'data/{query_option}Influencers.csv')
     st.write(f'There are {leaders.shape[0]} influencers identified based on top 20 degree (indegree + outdegree) and top degree influencers of clusters with 5 or more users.')
     leader_stats = user_info.loc[user_info['username'].isin(leaders['Influencer'].to_list())].iloc[:,4:].sum().reset_index().rename(columns={'index': 'influencer', 0:'N'})
-    leader_stats['Percentage'] = leader_stats['N']/leaders.shape[0]
+    leader_stats['Percentage'] = (leader_stats['N'].round(2)*100/leaders.shape[0]).astype(str)+"%"
     st.dataframe(leader_stats, hide_index=True)
     st.write('Note: some influencers have multiple social group labels, so the percentages of social groups do not add to 100%.')
     st.subheader('Top 10 leaders based on indegree centrality')
