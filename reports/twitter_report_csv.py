@@ -32,10 +32,12 @@ if cluster_option == 'all':
     var_names = ['Medical_professional', 'Advocate_Activist', 'Educator', 'Researcher', 'Job_Posting', 'organizations',
                  'Government', 'Miscellaneous']
     user_info = pd.read_csv('data/user_descriptions.csv')
+    user_info = user_info.loc[user_info["username"].isin(list(G.nodes))]
     user_class = user_info[var_names] \
-        .replace('None', None) \
+        .replace('None', 0) \
         .dropna() \
         .astype(int)
+    user_class["None"]
     st.subheader('GPT4 summary of leader tweets')
     themes = pd.read_csv(f'data/{query_option}ThemeFinal.csv')
     themes.sort_values('cluster_size', ascending=False, inplace = True)

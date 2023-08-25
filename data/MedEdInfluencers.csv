@@ -1,49 +1,49 @@
 Influencer,Degree,Cluster,SocialGroup
 MedEdBot,215,0,Medical professional
-OrthopodReg,205,4,Medical professional
+OrthopodReg,205,4,"Medical professional, Researcher, Advocate/Activist"
 AcadMedJournal,141,1,Researcher
 Royal_College,138,5,Organization
-drjfrank,136,2,Medical professional
+drjfrank,136,2,"Medical professional, Educator, Researcher"
 HarvardMacy,112,8,Educator
 acgme,109,3,Medical professional
 NEJM,93,6,Researcher
 IanJPereira,90,7,Medical professional
-EWidera,87,6,Medical professional
+EWidera,87,6,"Medical professional, Researcher"
 PsychRecovery,83,11,Advocate/Activist
 JournalofGME,77,1,Researcher
 AAMCtoday,75,3,Organizations
 meggerber,74,9,Medical professional
 Midwest_MedPeds,70,2,Medical professional
-DrDanSchumacher,65,2,Medical professional
-boedudley,65,1,Medical professional
+DrDanSchumacher,65,2,"Medical professional, Researcher"
+boedudley,65,1,"Medical professional, Educator, Researcher"
 TChanMD,61,2,Medical professional
-debsimpson3,58,1,Medical professional
-rohankhaz,55,3,Medical professional
-DrJessIsomMDMPH,50,20,Advocate/Activist
-thartman2u,40,18,Medical professional
+debsimpson3,58,1,"Medical professional, Researcher"
+rohankhaz,55,3,"Medical professional, Researcher, Advocate/Activist"
+DrJessIsomMDMPH,50,20,"Advocate/Activist, Medical professional"
+thartman2u,40,18,"Medical professional, Educator"
 MedicineGovSte,36,24,Medical professional
-holly_cw,35,10,Medical professional
+holly_cw,35,10,"Medical professional, Researcher"
 JessicaLuc1,35,16,Medical professional
 drsitu,34,13,Advocate/Activist
 TomVargheseJr,27,17,Medical professional
-mpusic,27,22,Medical professional
-DRaja_DNP,26,19,Educator
+mpusic,27,22,"Medical professional, Researcher"
+DRaja_DNP,26,19,"Educator, Researcher"
 victorng_md,25,14,Medical professional
 jameyedwards,22,26,Advocate/Activist
 UCSFMedicine,21,21,Organization
-Maya_Michigan,21,15,Medical professional
+Maya_Michigan,21,15,"Medical professional, Educator, Advocate/Activist"
 edusqo,20,12,Medical professional
 transformassess,19,31,Researcher
-imanfhassan,18,27,Medical professional
+imanfhassan,18,27,"Medical professional, Educator"
 DrNavSidhu,17,23,Medical professional
 sreeja_natesan,16,28,Medical professional
 erikwdriessen,15,30,Researcher
 ASPE_Tweets,14,25,Organizations
 JOPTEjournal,14,34,Researcher
-omniaelomrani1,13,32,Medical professional
+omniaelomrani1,13,32,"Medical professional, Advocate/Activist, Researcher"
 ConscienHealth,13,42,Advocate/Activist
 maiadorsett,11,45,Medical professional
-drricardocorrea,11,38,Medical Professional
+drricardocorrea,11,38,"Medical Professional, Researcher, Educator, Advocate/Activist"
 CCollinsPhD,11,36,Advocate/Activist
 Dolores_McKeen,11,29,Medical professional
 AnujUPatel,10,59,Medical professional
@@ -51,9 +51,9 @@ FScottFeil_DPT,10,53,Medical Professional
 BrianneWenning,9,68,Researcher
 DrPriyaKhanna,9,41,Researcher
 apm_trainees,9,33,Organizations
-audsoleil,9,56,Educator
+audsoleil,9,56,"Educator, Researcher, Advocate/Activist"
 eCMEf,8,50,Organizations
-KilianMD,8,35,Medical professional
+KilianMD,8,35,"Medical professional, Researcher, Educator"
 ECHOPaeds,7,54,Medical professional
 EMGeriPearls,7,52,Advocate/Activist
 ALSGBIAcademy,7,51,Medical professional
@@ -72,7 +72,7 @@ amapresident,6,55,Medical professional
 gfchao,6,44,Medical professional
 SanchezLunaMD,6,46,Medical professional
 NikiMessmore,5,60,Advocate/Activist
-MigsRunner,5,73,Medical professional
+MigsRunner,5,73,"Medical professional, Researcher"
 eMedEvents,5,62,Organizations
 PostgradLTHTr,5,63,Medical professional
 PaulTestaMD,5,47,Medical professional
@@ -83,9 +83,9 @@ OSUMedPedsRes,4,75,Medical professional
 ilanarosman,4,74,Medical professional
 ArchivesPath,4,66,Researcher
 THEnetcomm,4,71,Advocate/Activist
-_backtable,4,69,Miscellaneous
-ArpanPatelMD,4,65,Medical professional
-LauraMalmutMD,4,81,Medical Professional
+_backtable,4,69,
+ArpanPatelMD,4,65,"Medical professional, Researcher"
+LauraMalmutMD,4,81,"Medical Professional, Researcher, Educator, Advocate/Activist"
 mernstUro,3,72,Medical professional
 DrJ_tremorMD,3,67,Medical professional
 AartiPandya17,3,79,Medical professional
