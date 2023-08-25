@@ -37,7 +37,7 @@ if cluster_option == 'all':
         .replace('None', 0) \
         .dropna() \
         .astype(int)
-    user_class["None"]
+
     st.subheader('GPT4 summary of leader tweets')
     themes = pd.read_csv(f'data/{query_option}ThemeFinal.csv')
     themes.sort_values('cluster_size', ascending=False, inplace = True)
