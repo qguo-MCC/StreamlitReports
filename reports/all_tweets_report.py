@@ -122,8 +122,9 @@ if cluster_option == "all":
     st.subheader("Ask any question about the database to ChatGPT chatbot")
     question = st.text_input("question")
     qa = load_obj("data/dbchatbot.openai")
-    answer = qa({"question": question})
-    st.write(f"Answer: {answer['answer']}")
+    if st.button('Ask'):
+        answer = qa({"question": question})
+        st.write(f"Answer: {answer['answer']}")
 
 else:
     summary = pd.read_excel(
