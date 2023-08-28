@@ -108,13 +108,13 @@ if cluster_option == "all":
             for i, t in enumerate(results):
                 tid = re.search('id: (\d+)\nctext', t[0].page_content).group(1)
                 hyperlink = f"https://twitter.com/anyuser/status/{tid}"
-                st.write(f"<b>Tweet {i+1}</b>: (asimilarity score={t[1]}) {t[0].page_content.split('ctext:')[1]} class: {t[0].metadata['class']} [link]({hyperlink})", unsafe_allow_html=True)
+                st.write(f"<b>Tweet {i+1}</b>: (asimilarity score={t[1]}) {t[0].page_content.split('ctext:')[1]} {search_cluster}: {t[0].metadata[search_cluster]} [link]({hyperlink})", unsafe_allow_html=True)
         else:
             results = db.max_marginal_relevance_search(query, k=n_tweets, filter={search_cluster: True})
             for i, t in enumerate(results):
                 tid = re.search('id: (\d+)\nctext', t.page_content).group(1)
                 hyperlink = f"https://twitter.com/anyuser/status/{tid}"
-                st.write(f"<b>Tweet {i+1}</b>: {t.page_content.split('ctext:')[1]} class: {t.metadata['class']} [link]({hyperlink})", unsafe_allow_html=True)
+                st.write(f"<b>Tweet {i+1}</b>: {t.page_content.split('ctext:')[1]} {search_cluster}: {t.metadata[search_cluster]} [link]({hyperlink})", unsafe_allow_html=True)
 
 
 
