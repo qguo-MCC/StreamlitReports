@@ -110,7 +110,10 @@ if cluster_option == "all":
                 hyperlink = f"https://twitter.com/anyuser/status/{tid}"
                 st.write(f"<b>Tweet {i+1}</b>: (asimilarity score={t[1]}) {t[0].page_content.split('ctext:')[1]} [link]({hyperlink})", unsafe_allow_html=True)
         else:
-            results = db.max_marginal_relevance_search(query, k=n_tweets, filter={search_cluster: True})
+            if search_cluster != "all":
+                results = db.max_marginal_relevance_search(query, k=n_tweets, filter={search_cluster: True})
+            else:
+                results = db.max_marginal_relevance_search(query, k=n_tweets)
             for i, t in enumerate(results):
                 tid = re.search('id: (\d+)\nctext', t.page_content).group(1)
                 hyperlink = f"https://twitter.com/anyuser/status/{tid}"
