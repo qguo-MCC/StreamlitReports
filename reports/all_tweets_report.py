@@ -71,7 +71,7 @@ if cluster_option == "all":
         'advocacy',
         'assessment',
         'burnout',
-        'Competency Based Medical Education (CBME)',
+        'CBME',
         'clinical_reasoning',
         'collaboration',
         'communication',
@@ -93,14 +93,15 @@ if cluster_option == "all":
         'teaching',
         'technology',
         'telehealth',
-        'wellness']
+        'wellness'
+    ]
     search_cluster = st.selectbox("search cluster", tuple(search_clusters))
     #st.button('Search')
 
     if st.button('Search'):
         if query_method == 'highly related':
             if search_cluster != "all":
-                results = db.similarity_search_with_score(query, k=n_tweets, filter={'class': search_cluster})
+                results = db.similarity_search_with_score(query, k=n_tweets, filter={search_cluster: True})
             else:
                 results = db.similarity_search_with_score(query, k=n_tweets)
 
@@ -109,7 +110,7 @@ if cluster_option == "all":
                 hyperlink = f"https://twitter.com/anyuser/status/{tid}"
                 st.write(f"<b>Tweet {i+1}</b>: (asimilarity score={t[1]}) {t[0].page_content.split('ctext:')[1]} class: {t[0].metadata['class']} [link]({hyperlink})", unsafe_allow_html=True)
         else:
-            results = db.max_marginal_relevance_search(query, k=n_tweets)
+            results = db.max_marginal_relevance_search(query, k=n_tweets, filter={search_cluster: True})
             for i, t in enumerate(results):
                 tid = re.search('id: (\d+)\nctext', t.page_content).group(1)
                 hyperlink = f"https://twitter.com/anyuser/status/{tid}"
