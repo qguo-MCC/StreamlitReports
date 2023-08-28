@@ -127,7 +127,7 @@ if cluster_option == "all":
         answer = qa({"question": question})
         tab1.write(f"Answer: {answer['answer']}")
         tab2.write(f"To be added later")
-        tab3.write(f"{answer['chat_history']}")
+        tab3.dataframe(pd.DataFrame([[type(message), message.content] for message in answer['chat_history']]))
 
 else:
     summary = pd.read_excel(
