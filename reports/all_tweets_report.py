@@ -119,7 +119,11 @@ if cluster_option == "all":
                 hyperlink = f"https://twitter.com/anyuser/status/{tid}"
                 st.write(f"<b>Tweet {i+1}</b>: {t.page_content.split('ctext:')[1]} [link]({hyperlink})", unsafe_allow_html=True)
 
-
+    st.subheader("Ask any question about the database to ChatGPT chatbot")
+    question = st.text_input("question")
+    qa = load_obj("data/dbchatbot.openai")
+    answer = qa({"question": question})
+    st.write(f"Answer: {answer['answer']}")
 
 else:
     summary = pd.read_excel(
