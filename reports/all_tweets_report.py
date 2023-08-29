@@ -129,7 +129,7 @@ if cluster_option == "all":
         chat_history.extend([(query, answer["answer"])])
         tab1.write(f"Answer: {answer['answer']}")
         tab2.dataframe(pd.DataFrame({"tweets":[doc.page_conent.split('ctext:')[1] for doc in answer['source_documents']]}), use_container_width=True, hide_index=True)
-        tab3.dataframe(pd.DataFrame(chat_history, columns=['query', 'answer']))
+        tab3.dataframe(pd.DataFrame(chat_history, columns=['query', 'answer']), use_container_width=True, hide_index=True)
 
     if st.button('ClearHistory'):
         chat_history = []
