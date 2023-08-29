@@ -126,7 +126,7 @@ if cluster_option == "all":
     tab1, tab2, tab3 = st.tabs(["answer", "queries", "history"])
     if st.button('Ask'):
         answer = qa({"question": question, "chat_history": chat_history})
-        chat_history.extend([(query, answer["answer"])])
+        chat_history.extend([(question, answer["answer"])])
         tab1.write(f"Answer: {answer['answer']}")
         tab2.dataframe(pd.DataFrame({"tweets":[doc.page_content.split('ctext:')[1] for doc in answer['source_documents']]}), use_container_width=True, hide_index=True)
         tab3.dataframe(pd.DataFrame(chat_history, columns=['query', 'answer']), use_container_width=True, hide_index=True)
