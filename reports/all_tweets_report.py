@@ -122,12 +122,17 @@ if cluster_option == "all":
     st.subheader("Ask any question about the database to ChatGPT chatbot")
     question = st.text_input("question")
     qa = load_obj("data/dbchatbot.openai")
+    chat_history = []
     tab1, tab2, tab3 = st.tabs(["answer", "queries", "history"])
     if st.button('Ask'):
-        answer = qa({"question": question})
+        answer = qa({"question": question, "chat_history": chat_history})
+        chat_history.extend([(query, answer["answer"])])
         tab1.write(f"Answer: {answer['answer']}")
-        tab2.write(f"To be added later")
-        tab3.dataframe(pd.DataFrame([[type(message), message.content] for message in answer['chat_history']]))
+        tab2.dataframe(pd.DataFrame({"tweets":[doc.page_conent.split('ctext:')[1] for doc in answer['source_documents']]}), use_container_width=True, hide_index=True)
+        tab3.dataframe(pd.DataFrame(chat_history, columns=['query', 'answer']))
+
+    if st.button('ClearHistory'):
+        chat_history = []
 
 else:
     summary = pd.read_excel(
