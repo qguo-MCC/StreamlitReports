@@ -37,7 +37,7 @@ for g in groups:
 
 canmeds.to_csv('data/CanMEDSClusteringFinal.csv', index=False)
 meded.to_csv('data/MedEdClusteringFinal.csv', index=False)
-canmeds.to_csv('data/CanMEDSThemeFinal.csv', index=False)
-canmeds.to_csv('data/MedEdThemeFinal.csv', index=False)
+cthemes.to_csv('data/CanMEDSThemeFinal.csv', index=False)
+mthemes.to_csv('data/MedEdThemeFinal.csv', index=False)
 
 
