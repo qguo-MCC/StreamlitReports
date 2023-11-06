@@ -46,7 +46,7 @@ if cluster_option == 'all':
     for idx, row in themes.iterrows():
         examples = row['examples'].split('|| ')
         st.write(f'<h4>Theme {idx+1}: {row["text"]}</h4>', unsafe_allow_html=True)
-        st.write(f'<b>Cluster size:</b> {row["cluster_size"]} tweets ({round(100*row["cluster_size"]/n_leader_tweets, 0)})', unsafe_allow_html=True)
+        st.write(f'<b>Cluster size:</b> {row["cluster_size"]} tweets ({round(100*row["cluster_size"]/n_leader_tweets, 0)}%)', unsafe_allow_html=True)
         st.write(f'<b>Dominant social group:</b> {row["DominantGroup"]}', unsafe_allow_html=True)
         st.write(f'<b>Summary:</b> {row["summary"]}', unsafe_allow_html=True)
         st.write(f'<b>Example 1:</b> {examples[0]}', unsafe_allow_html=True)
