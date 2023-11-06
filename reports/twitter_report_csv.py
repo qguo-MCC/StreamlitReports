@@ -43,6 +43,7 @@ if cluster_option == 'all':
     themes.sort_values('cluster_size', ascending=False, inplace = True)
     themes.reset_index(inplace=True)
     n_leader_tweets = themes['cluster_size'].sum()
+    st.write(f'Summary based on {n_leader_tweets} leader tweets.')
     for idx, row in themes.iterrows():
         examples = row['examples'].split('|| ')
         st.write(f'<h4>Theme {idx+1}: {row["text"]}</h4>', unsafe_allow_html=True)
